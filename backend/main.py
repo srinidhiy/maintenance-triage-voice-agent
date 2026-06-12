@@ -1,8 +1,10 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 from typing import Optional
 from datetime import datetime
+import os
 import uuid
 
 import storage
@@ -265,3 +267,26 @@ def _recompute_schedule() -> None:
 
     storage.save("tickets")
     storage.set_travel_blocks(travel_blocks)
+
+
+# --- Twilio voice endpoints ---
+
+@app.post("/twiml", response_class=PlainTextResponse)
+async def twiml_webhook():
+    """Twilio calls this when a call arrives. Returns TwiML that opens a Media Stream to /ws."""
+    host = os.getenv("PUBLIC_HOST")  # e.g. "abc123.ngrok.io" set at startup
+    twiml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Connect>
+    <Stream url="wss://{host}/ws" />
+  </Connect>
+</Response>"""
+    return twiml
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    """Twilio Media Streams connects here. Runs the Pipecat voice agent."""
+    from agent.bot import run_bot
+    await websocket.accept()
+    await run_bot(websocket)

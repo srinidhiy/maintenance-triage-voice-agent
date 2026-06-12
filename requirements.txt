@@ -1,0 +1,13 @@
+# Backend
+fastapi>=0.111.0
+httpx>=0.27.0          # required by FastAPI TestClient
+uvicorn[standard]>=0.30.0
+pydantic>=2.7.0
+python-dotenv>=1.0.0
+pytest>=8.0.0
+
+# LLM (triage + summarization)
+openai>=1.35.0
+
+# Voice agent (added when implementing Pipecat layer)
+pipecat-ai[silero,daily,twilio]>=0.0.46

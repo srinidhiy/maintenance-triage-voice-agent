@@ -1,0 +1,9 @@
+[
+  {
+    "id": "33333333-0000-0000-0000-000000000001",
+    "technician_name": "Mike Smith",
+    "phone": "+14155559001",
+    "active": true,
+    "current_building_id": null
+  }
+]

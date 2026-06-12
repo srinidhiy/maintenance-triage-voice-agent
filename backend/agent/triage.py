@@ -6,6 +6,7 @@ from openai import AsyncOpenAI
 from pydantic import BaseModel
 
 TRIAGE_MODEL = os.getenv("TRIAGE_MODEL", "gpt-4o")
+SUMMARY_MODEL = os.getenv("SUMMARY_MODEL", "gpt-4o-mini")
 
 _client: Optional[AsyncOpenAI] = None
 
@@ -45,6 +46,25 @@ class TriageResult(BaseModel):
     reasoning: str
     suggested_instructions: Optional[str]
     estimated_duration_minutes: int
+
+
+async def summarize_issue(description: str, severity: str) -> str:
+    response = await _get_client().chat.completions.create(
+        model=SUMMARY_MODEL,
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "Summarize the maintenance issue in 1-2 sentences for a technician. "
+                    "Be specific about the problem and location in the unit."
+                ),
+            },
+            {"role": "user", "content": f"Severity: {severity}\nDescription: {description}"},
+        ],
+        temperature=0.0,
+        max_tokens=80,
+    )
+    return response.choices[0].message.content.strip()
 
 
 async def run_triage(

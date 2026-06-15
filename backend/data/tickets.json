@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "ac973dcf-9cd5-4110-ac20-d35be2236693",
+    "tenant_id": "22222222-0000-0000-0000-000000000001",
+    "urgency": "urgent",
+    "summary": "No hot water",
+    "status": "open",
+    "confidence": 0.9,
+    "instructions": null,
+    "estimated_duration_minutes": 30,
+    "scheduled_start": "2026-06-16T08:00:00",
+    "at_risk": true,
+    "raw_turns": [],
+    "created_at": "2026-06-11T20:18:35.823351",
+    "updated_at": "2026-06-11T20:18:35.823351"
+  },
+  {
+    "id": "b3372703-ae12-4298-9ad6-35448413ce7c",
+    "tenant_id": null,
+    "urgency": "emergency",
+    "summary": "Water flooding unit 3C",
+    "status": "completed",
+    "confidence": 0.95,
+    "instructions": null,
+    "estimated_duration_minutes": 30,
+    "scheduled_start": null,
+    "at_risk": false,
+    "raw_turns": [],
+    "created_at": "2026-06-15T21:10:57.784312",
+    "updated_at": "2026-06-15T21:11:31.057207"
+  },
+  {
+    "id": "a7e044ff-72c5-48bf-9a61-431a5e8f2838",
+    "tenant_id": null,
+    "urgency": "urgent",
+    "summary": "Water flooding unit 3C",
+    "status": "open",
+    "confidence": 0.95,
+    "instructions": null,
+    "estimated_duration_minutes": 30,
+    "scheduled_start": null,
+    "at_risk": false,
+    "raw_turns": [],
+    "created_at": "2026-06-15T21:12:47.241807",
+    "updated_at": "2026-06-15T21:12:47.241807"
+  }
+]
